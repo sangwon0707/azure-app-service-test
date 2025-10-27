@@ -21,6 +21,12 @@ export default function Home() {
 
   const handleRecommend = async (e: React.FormEvent) => {
     e.preventDefault()
+
+    if (!category && !maxPrice) {
+      setError('카테고리 또는 최대 가격을 입력해주세요.')
+      return
+    }
+
     setLoading(true)
     setError('')
 
@@ -30,6 +36,9 @@ export default function Home() {
         max_price: maxPrice ? parseFloat(maxPrice) : null,
       })
       setProducts(response.data.recommendations)
+      if (response.data.recommendations.length === 0) {
+        setError('조건에 맞는 상품이 없습니다.')
+      }
     } catch (err) {
       setError('상품을 가져올 수 없습니다. 백엔드가 실행 중인지 확인하세요.')
       console.error(err)
@@ -55,8 +64,8 @@ export default function Home() {
   return (
     <div className={styles.container}>
       <header className={styles.header}>
-        <h1>🛍️ recommend-your-product</h1>
-        <p>당신에게 맞는 상품을 추천받아보세요</p>
+        <h1>🛍️ Recommend Your Product</h1>
+        <p>당신에게 딱 맞는 상품을 찾아보세요!</p>
       </header>
 
       <main className={styles.main}>
