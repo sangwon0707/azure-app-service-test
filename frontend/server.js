@@ -8,7 +8,7 @@ const next = require('next')
 const dev = process.env.NODE_ENV !== 'production'
 const app = next({ dev })
 const handle = app.getRequestHandler()
-
+ 
 // Azure App Service에서 사용할 포트 (기본값: 8080)
 const PORT = process.env.PORT || 8080
 
